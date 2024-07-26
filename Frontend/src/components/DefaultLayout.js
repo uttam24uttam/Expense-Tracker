@@ -7,7 +7,8 @@ import { useNavigate } from 'react-router-dom';
 function DefaultLayout(props) {
 
     const navigate = useNavigate()
-    // Define menu items for the dropdown
+
+    //Menu items
     const items = [
         {
             label: 'Sign out',

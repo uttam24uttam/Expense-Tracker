@@ -9,7 +9,7 @@ import "../resources/transaction.css"
 function CrudTransactions(props) {
 
 
-    //So when the form is submitted , the save buttons is clicked , then this function is called. It saves it into db and shows in table
+    // saves it into db and shows in table
     const onFinish = async (values) => {
 
         const user = JSON.parse(localStorage.getItem("User"))
@@ -18,7 +18,7 @@ function CrudTransactions(props) {
             if (props.selectedTransactionForEdit) {
                 const response = await axios.post("api/transactions/edit-transaction", { payload: { ...values, userid: user._id }, transactionID: props.selectedTransactionForEdit._id }) //sends to db
                 message.success("Transaction Edited Succesfully")
-                props.getTransaction()       //gets the whole db , and inside this function it sets the whole db into trasactionData which is used to form table
+                props.getTransaction()      
                 console.log("Succesfully sent", response.data)
             }
             else {
@@ -44,7 +44,7 @@ function CrudTransactions(props) {
             title={props.selectedTransactionForEdit ? "Edit Transaction" : "Add Transaction"}
             open={props.showCrudTransactionModel}    //open when show is true 
             // onOk={() => toggleModal(0, false)}
-            onCancel={() => props.setShowCrudTransactionModel(false)} //on cancel , it show should be false
+            onCancel={() => props.setShowCrudTransactionModel(false)} //on cancel ,  show should be false
             footer={false} >
 
 

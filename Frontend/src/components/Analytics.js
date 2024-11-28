@@ -34,7 +34,7 @@ function Analytics({ transactions }) {
                 </div>
                 <div className="w-full md:w-1/3 px-2 ml-5">   {/* column-2 */}
                     <div className="bg-white p-4 shadow rounded">
-                        <h4 className="text-lg mb-2 font-medium text-gray-900">Total Turnover: {totalTurnover}</h4>
+                        <h4 className="text-lg mb-2 font-medium text-gray-900">Total Stats: {totalTurnover}</h4>
                         <hr className="my-2" />
                         <h3 className="text-md font-medium mb-2 text-gray-800">Income : {totalIncome}</h3>
                         <h3 className="text-md font-medium mb-2 text-gray-800">Expense: {totalExpense}</h3>

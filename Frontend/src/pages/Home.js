@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from 'react';
 import "tailwindcss/tailwind.css";
 import DefaultLayout from '../components/DefaultLayout';
@@ -10,6 +11,8 @@ import axios from "axios";
 import { message, Table, Select, DatePicker, Popconfirm } from "antd";
 import { format } from 'date-fns';
 import { UnorderedListOutlined, AreaChartOutlined, EditOutlined, DeleteOutlined } from '@ant-design/icons';
+import jsPDF from "jspdf";
+import "jspdf-autotable";
 
 function Home() {
     const [load, setLoad] = useState(false);
@@ -48,6 +51,31 @@ function Home() {
             console.log(error);
             message.error("Something went wrong");
         }
+    };
+
+    const downloadPDF = () => {
+        const doc = new jsPDF();
+        const tableColumn = ["Date", "Amount", "Type", "Category"];
+        const tableRows = [];
+
+        transactionData.forEach((transaction) => {
+            const transactionData = [
+                format(new Date(transaction.date), 'yyyy-MM-dd'),
+                transaction.amount,
+                transaction.type,
+                transaction.category,
+            ];
+            tableRows.push(transactionData);
+        });
+
+        doc.autoTable({
+            head: [tableColumn],
+            body: tableRows,
+            startY: 20,
+        });
+
+        doc.text("Transaction Data", 14, 15);
+        doc.save("transaction_data.pdf");
     };
 
     useEffect(() => {
@@ -102,10 +130,10 @@ function Home() {
 
             <div className='filter flex justify-between items-center border p-4 rounded-lg shadow-lg'>   {/*top filter bar */}
 
-                <div className='flex justify-between'>                {/* type and select ffreq  */}
+                <div className='flex justify-between'>                {/* type and select freq  */}
 
                     <div className='frequency min-w-md ml-4 flex flex-col items-start'>       {/* freq */}
-                        <div> {/* freq */}
+                        <div>
                             <h6 className='mb-1'>Select Frequency</h6>
                             <Select value={frequency} onChange={(value) => setFrequency(value)}>
                                 <Select.Option value='1'>All Transactions</Select.Option>
@@ -117,14 +145,14 @@ function Home() {
                             </Select>
                         </div>
 
-                        <div className="mt-3">     {/* freq custom range*/}
+                        <div className="mt-3">
                             {frequency === 'custom' && (
                                 <RangePicker value={dateRange} onChange={(values) => setDateRange(values)} />
                             )}
                         </div>
                     </div>
 
-                    <div className='flex flex-col mb-3 ml-5 '>  {/* type */}
+                    <div className='flex flex-col mb-3 ml-5'>
                         <h6 className='mb-1'>Type</h6>
                         <Select value={type} onChange={(value) => setType(value)}>
                             <Select.Option value='all'>All Transactions</Select.Option>
@@ -134,9 +162,8 @@ function Home() {
                     </div>
                 </div>
 
-                <div className='flex'> {/* right part in filter */}
-
-                    <div className='mr-3 toggle'>   {/* toggle */}
+                <div className='flex'>
+                    <div className='mr-3 toggle'>
                         <div className='view-switch pt-2'>
                             <UnorderedListOutlined onClick={() => { setViewType('table') }}
                                 className={`ml-2 mr-3 pt-1 size-30 ${viewType === 'table' ? 'active-icon' : 'inactive-icon'}`}
@@ -145,12 +172,17 @@ function Home() {
                         </div>
                     </div>
 
-                    {/* add new */}
                     <button
                         onClick={() => setShowCrudTransactionModel(true)}
                         className="bg-[#546E7A] hover:bg-[#4a5d66] text-white font-bold p-2 px-4 border border-blue-700 rounded-lg text-sm mr-3"
                     >
                         ADD NEW
+                    </button>
+                    <button
+                        onClick={downloadPDF}
+                        className="bg-[#546E7A] hover:bg-[#4a5d66] text-white font-bold p-2 px-4 border border-blue-700 rounded-lg text-sm"
+                    >
+                        Download PDF
                     </button>
                 </div>
             </div>

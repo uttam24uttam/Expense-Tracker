@@ -55,10 +55,7 @@ function ViewFriend() {
             }
 
             // fetching  friend details
-            const friendResponse = await axios.get(
-                `http://localhost:5000/api/friends/get-friend-details/${friendId}`
-            );
-
+            const friendResponse = await axios.get(`api/friends/get-friend-details/${friendId}`);
             if (!friendResponse.data.success || !friendResponse.data.friend) {
                 throw new Error("Friend details not found.");
             }
@@ -67,9 +64,7 @@ function ViewFriend() {
 
             // Fetch balance message
             try {
-                const balanceResponse = await axios.get(
-                    `http://localhost:5000/api/friend-transactions/balance/${user._id}/${friendId}`
-                );
+                const balanceResponse = await axios.get(`api/friend-transactions/balance/${user._id}/${friendId}`);
 
                 if (balanceResponse.data.balanceMessage) {
                     setBalanceMessage(balanceResponse.data.balanceMessage); // Set balanceMessage here
@@ -80,9 +75,7 @@ function ViewFriend() {
             }
 
             // fetch all friend-transactions
-            const transactionsResponse = await axios.get(
-                `/api/friend-transactions/transactions/${user._id}/${friendId}`
-            );
+            const transactionsResponse = await axios.get(`/api/friend-transactions/transactions/${user._id}/${friendId}`);
 
             setTransactions(transactionsResponse.data.transactions);
             setBalance(transactionsResponse.data.balance);
@@ -102,7 +95,7 @@ function ViewFriend() {
                 return;
             }
 
-            const response = await axios.post("http://localhost:5000/api/friend-transactions/settle-up", {
+            const response = await axios.post("api/friend-transactions/settle-up", {
                 userId,
                 friendId,
                 settleAmount: Number(settleAmount),
@@ -219,14 +212,10 @@ function ViewFriend() {
 
                             {/* Balance Message */}
                             <div className="flex flex-col items-center">
-                                <p
-                                    className={`text-sm font-medium ${txn.balanceMessage?.includes("borrowed")
-                                        ? "text-red-500"
-                                        : txn.balanceMessage?.includes("lent")
-                                            ? "text-green-500"
-                                            : txn.balanceMessage?.includes("paid")
-                                                ? "text-gray-500"
-                                                : "text-gray-500"
+                            <p
+                              className={`text-sm font-medium ${txn.balanceMessage?.includes("borrowed") ? "text-red-500" : txn.balanceMessage?.includes("lent") ? 
+                                                          "text-green-500" : txn.balanceMessage?.includes("paid") ? "text-gray-500" : "text-gray-500"}`}
+
                                         }`}
                                 >
                                     {txn.balanceMessage?.includes("paid")
@@ -234,12 +223,10 @@ function ViewFriend() {
                                         : txn.balanceMessage || "No Balance Info"}
                                 </p>
                                 {txn.balanceMessage && txn.amount && (
-                                    <p
-                                        className={`text-lg font-bold mt-1 ${txn.balanceMessage?.includes("borrowed")
-                                            ? "text-red-500"
-                                            : txn.balanceMessage?.includes("lent")
-                                                ? "text-green-500"
-                                                : "text-gray-500"
+                                <p
+                                  className={`text-lg font-bold mt-1 ${txn.balanceMessage?.includes("borrowed") ? "text-red-500" : txn.balanceMessage?.includes("lent") ? 
+                                            "text-green-500" : "text-gray-500"}`}
+
                                             }`}
                                     >
                                         ₹{Math.abs(txn.amount).toFixed(0)}

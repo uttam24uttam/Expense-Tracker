@@ -2,13 +2,13 @@ This web app helps you manage your personal finances and split expenses with fri
 
 ## Features
 
-### Personal Finance Tracking
+### Personal expense tracking
 1) Record all your transactions, whether it's income or expenses.
 2) Categorize your transactions into predefined categories or manually create custom categories. Add descriptions, dates, and amounts for each transaction. You can also edit or delete entries when needed.
 3) Filter your transactions by date, category. Visualize your spending and income trends for better understanding.
 4) Export your expenses as a PDF for sharing and record-keeping.
 
-### Splitting Expenses with Friends
+### Splitting expenses with Friends
 1) Add friends through their registered email id/username and split expenses among multiple people.
 2) While splitting, one can add description, categorize the expense, people involved and specify the amount each person paid.
 3) Choose split options like equal distribution, percentage-based, or manual, with automatic calculations of what each person owes or is owed. For every member involved, it will be visible if they owe or are owed by any of their friends, and how much.

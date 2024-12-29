@@ -10,7 +10,7 @@ router.post('/register', async function (req, res) {
     try {
         const { email, password } = req.body;
 
-        // Check if user already exists
+        // checking if user already exists
         const existingUser = await User.findOne({ email });
         if (existingUser) {
             return res.status(400).json("Email already registered");
@@ -35,7 +35,7 @@ router.post('/login', async function (req, res) {
             return res.status(400).json("Invalid email or password");
         }
 
-        //compare entered password with the hashed password
+        //comparing entered password with the hashed password
         const isMatch = await bcrypt.compare(req.body.password, user.password);
 
         if (!isMatch) {

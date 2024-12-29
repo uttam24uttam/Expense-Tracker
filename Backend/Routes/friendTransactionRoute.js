@@ -121,17 +121,11 @@ router.get("/transactions/:userId/:friendId", async (req, res) => {
         }).lean();
 
         // Add balanceMessage
-        const formattedTransactions = transactions.map((txn) => {
-            const isUser1 = txn.user1.toString() === userId;
-            const amount = Math.abs(txn.amount).toFixed(2);
+  const formattedTransactions = transactions.map((txn) => {
+  const isUser1 = txn.user1.toString() === userId;
+  const amount = Math.abs(txn.amount).toFixed(2);
+  const balanceMessage = (isUser1 ? (txn.amount < 0 ? ` You borrowed ` : ` You lent `) : (txn.amount < 0 ? ` You lent ` : ` You borrowed `)); //if user & amount<0 , then borrowed , else lent
 
-            const balanceMessage = isUser1
-                ? txn.amount < 0
-                    ? ` You borrowed `
-                    : ` You lent `
-                : txn.amount < 0
-                    ? ` You lent `
-                    : ` You borrowed `;
 
             return {
                 ...txn,
@@ -282,13 +276,8 @@ router.post("/settle-up", async (req, res) => {
         if (!friendBalance) {
             return res.status(404).json({ success: false, message: "Friend balance not found." });
         }
-        //user balance = user in friendbalance model
-        //userFriendBalance =  friend's balance in user' acc
-        //friend balance = friend in friendbalance model
-        //frienduserbalance = user's balance in frined's acc
 
         const userBalance2 = await FriendBalance.findOne({ userId: userId });
-
         let userFriendBalance2 = 0; // Default balance 
 
         if (userBalance2) {
@@ -358,9 +347,6 @@ router.post('/add-personal-tracking-transaction', async function (req, res) {
         res.status(500).json(error);
     }
 });
-
-
-
 
 
 

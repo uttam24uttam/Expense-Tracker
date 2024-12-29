@@ -3,7 +3,7 @@ This web app helps you manage your personal finances and split expenses with fri
 ## Features 
 
 ### Personal expense tracking
-1) Record all your transactions, whether it's income or expenses.
+- Record all your transactions, whether it's income or expenses.
 2) Categorize your transactions into predefined categories or manually create custom categories. Add descriptions, dates, and amounts for each transaction. You can also edit or delete entries when needed.
 3) Filter your transactions by date, category. Visualize your spending and income trends for better understanding.
 4) Export your expenses as a PDF for sharing and record-keeping.

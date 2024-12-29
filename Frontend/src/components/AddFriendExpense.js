@@ -63,11 +63,15 @@ function AddFriendExpense({ friends, visible, onCancel, onExpenseAdded, okText }
                 // Send the personal finance info to the backend
                 const personalFinanceTransaction = {
                     userid: user._id,
-                    amount: newExpense.splitOption === "percentage"
-                        ? (parseFloat(newExpense.splitDetails[user._id] || 0) / 100) * parseFloat(newExpense.totalAmount)
-                        : newExpense.splitOption === "manual"
-                            ? parseFloat(newExpense.splitDetails[user._id] || 0)
-                            : parseFloat(newExpense.totalAmount) / (newExpense.selectedFriends.length + 1),
+                    let amount;
+                    if (newExpense.splitOption === "percentage") {
+                         amount = (parseFloat(newExpense.splitDetails[user._id] || 0) / 100) * parseFloat(newExpense.totalAmount);
+                   } else if (newExpense.splitOption === "manual") {
+                        amount = parseFloat(newExpense.splitDetails[user._id] || 0);
+                   } else {
+                       amount = parseFloat(newExpense.totalAmount) / (newExpense.selectedFriends.length + 1);
+                   }
+
                     type: "expense",
                     category: newExpense.category,
                     description: newExpense.description,
@@ -75,7 +79,7 @@ function AddFriendExpense({ friends, visible, onCancel, onExpenseAdded, okText }
                 };
 
                 //Sending personal finance transaction to backend
-                await axios.post("http://localhost:5000/api/friend-transactions/add-personal-tracking-transaction", personalFinanceTransaction);
+                await axios.post("api/friend-transactions/add-personal-tracking-transaction", personalFinanceTransaction);
 
                 message.success("Personal finance transaction added successfully!");
             }
@@ -189,24 +193,24 @@ function AddFriendExpense({ friends, visible, onCancel, onExpenseAdded, okText }
             {/*Amount Paid*/}
             {newExpense.whoPaid.length > 0 && (
                 <div className="mb-2">
-                    <p>Enter Amount Paid by Each:</p>
-                    {newExpense.whoPaid.map((id) => (
-                        <Input
-                            key={id}
-                            type="number"
-                            value={newExpense.amountsPaid[id] || ""}
-                            placeholder={`Amount paid by ${id === user._id ? "You" : friends.find(friend => friend._id === id)?.name}`}
-                            onChange={(e) =>
-                                setNewExpense({
-                                    ...newExpense,
-                                    amountsPaid: {
-                                        ...newExpense.amountsPaid,
-                                        [id]: e.target.value,
-                                    },
-                                })
-                            }
-                            className="mb-2"
-                            required
+                <p>Enter Amount Paid by Each:</p>
+                {newExpense.whoPaid.map((id) => (
+                 <Input
+                    key={id}
+                    type="number"
+                    value={newExpense.amountsPaid[id] || ""}
+                    placeholder={`Amount paid by ${id === user._id ? "You" : friends.find(friend => friend._id === id)?.name}`}
+                    onChange={(e) =>
+                      setNewExpense({
+                      ...newExpense,
+                      amountsPaid: {
+                        ...newExpense.amountsPaid,
+                        [id]: e.target.value,
+                            },
+                        })
+                         }
+                      className="mb-2"
+                      required
                         />
                     ))}
                 </div>
@@ -227,35 +231,35 @@ function AddFriendExpense({ friends, visible, onCancel, onExpenseAdded, okText }
                 </Radio.Group>
                 <div className="mt-2">
                     {newExpense.splitOption === "percentage" ? (
-                        <>
-                            {newExpense.selectedFriends.map((friendId) => (
-                                <Input
-                                    key={friendId}
-                                    placeholder={`Percentage for ${friends.find(friend => friend._id === friendId)?.name}`}
-                                    type="number"
-                                    value={newExpense.splitDetails[friendId] || ""}
-                                    onChange={(e) =>
-                                        setNewExpense({
-                                            ...newExpense,
-                                            splitDetails: {
-                                                ...newExpense.splitDetails,
-                                                [friendId]: e.target.value,
+                <>
+                    {newExpense.selectedFriends.map((friendId) => (
+                        <Input
+                            key={friendId}
+                            placeholder={`Percentage for ${friends.find(friend => friend._id === friendId)?.name}`}
+                            type="number"
+                            value={newExpense.splitDetails[friendId] || ""}
+                            onChange={(e) =>
+                                setNewExpense({
+                                    ...newExpense,
+                                    splitDetails: {
+                                    ...newExpense.splitDetails,
+                                    [friendId]: e.target.value,
                                             },
                                         })
                                     }
                                     className="mb-2"
                                 />
                             ))}
-                            <Input
-                                placeholder="Your Percentage"
-                                type="number"
-                                value={newExpense.splitDetails[user._id] || ""}
-                                onChange={(e) =>
-                                    setNewExpense({
-                                        ...newExpense,
-                                        splitDetails: {
-                                            ...newExpense.splitDetails,
-                                            [user._id]: e.target.value,
+                         <Input
+                            placeholder="Your Percentage"
+                            type="number"
+                            value={newExpense.splitDetails[user._id] || ""}
+                            onChange={(e) =>
+                            setNewExpense({
+                                ...newExpense,
+                                splitDetails: {
+                                ...newExpense.splitDetails,
+                                [user._id]: e.target.value,
                                         },
                                     })
                                 }
@@ -264,22 +268,22 @@ function AddFriendExpense({ friends, visible, onCancel, onExpenseAdded, okText }
                         </>
                     ) : newExpense.splitOption === "manual" ? (
                         <>
-                            {newExpense.selectedFriends.map((friendId) => (
-                                <Input
-                                    key={friendId}
-                                    placeholder={`Amount for ${friends.find(friend => friend._id === friendId)?.name}`}
-                                    type="number"
-                                    value={newExpense.splitDetails[friendId] || ""}
-                                    onChange={(e) =>
-                                        setNewExpense({
-                                            ...newExpense,
-                                            splitDetails: {
-                                                ...newExpense.splitDetails,
-                                                [friendId]: e.target.value,
-                                            },
-                                        })
-                                    }
-                                    className="mb-2"
+                    {newExpense.selectedFriends.map((friendId) => (
+                         <Input
+                            key={friendId}
+                            placeholder={`Amount for ${friends.find(friend => friend._id === friendId)?.name}`}
+                            type="number"
+                            value={newExpense.splitDetails[friendId] || ""}
+                            onChange={(e) =>
+                                setNewExpense({
+                                ...newExpense,
+                                splitDetails: {
+                                ...newExpense.splitDetails,
+                                [friendId]: e.target.value,
+                                        },
+                                    })
+                                }
+                            className="mb-2"
                                 />
                             ))}
                             <Input
@@ -287,11 +291,11 @@ function AddFriendExpense({ friends, visible, onCancel, onExpenseAdded, okText }
                                 type="number"
                                 value={newExpense.splitDetails[user._id] || ""}
                                 onChange={(e) =>
-                                    setNewExpense({
-                                        ...newExpense,
-                                        splitDetails: {
-                                            ...newExpense.splitDetails,
-                                            [user._id]: e.target.value,
+                                  setNewExpense({
+                                  ...newExpense,
+                                  splitDetails: {
+                                  ...newExpense.splitDetails,
+                                  [user._id]: e.target.value,
                                         },
                                     })
                                 }

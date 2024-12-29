@@ -1,61 +1,3 @@
-// import React from 'react';
-// import "tailwindcss/tailwind.css";
-// import { UserOutlined } from '@ant-design/icons';
-// import { Button, Dropdown } from 'antd';
-// import { useNavigate } from 'react-router-dom';
-
-// function DefaultLayout(props) {
-
-//     const navigate = useNavigate()
-//     // Define menu items for the dropdown
-//     const items = [
-//         {
-//             label: 'Sign out',
-//             key: '1',
-//             icon: <UserOutlined />,
-//             danger: true,
-//         },
-//     ];
-
-//     const menuProps = {
-//         items,
-//         onClick: (event) => {
-//             if (event.key === '1') {
-//                 console.log('Sign out clicked');
-//                 localStorage.removeItem('User');
-//                 navigate("/login")
-//             }
-//         },
-//     };
-//     const user = JSON.parse(localStorage.getItem("User")) || { name: "Guest" };
-
-//     return (
-//         <div className='Layout my-2 mx-[125px] '>
-//             <div className='header bg-blue-gray-600 p-4 rounded-xl h-[10vh] flex justify-between items-center'>
-//                 <div>
-//                     <h1 className='text-white text-xl m-0 pl-4'>Expense Tracker</h1>
-//                 </div>
-//                 <div >
-//                     <Dropdown.Button
-//                         menu={menuProps}
-//                         icon={<UserOutlined />} >
-
-//                         {user.name}
-//                     </Dropdown.Button>
-//                 </div>
-//             </div>
-
-
-//             <div className='h-[80vh] overflow-y-scroll shadow-[0_0_3px_gray] mt-5 rounded-tl-lg rounded-tr-lg content p-4'>
-//                 {props.children}
-//             </div>
-//         </div>
-//     );
-// }
-
-// export default DefaultLayout;
-
-
 import React from 'react';
 import "tailwindcss/tailwind.css";
 import { UserOutlined } from '@ant-design/icons';
@@ -65,10 +7,9 @@ import { useNavigate } from 'react-router-dom';
 function DefaultLayout(props) {
 
     const navigate = useNavigate();
-    // Define menu items for the dropdown
     const items = [
         {
-            label: 'Sign out',
+            label: 'Sign out',  //LOGOUT
             key: '1',
             icon: <UserOutlined />,
             danger: true,
@@ -85,22 +26,31 @@ function DefaultLayout(props) {
             }
         },
     };
+
     const user = JSON.parse(localStorage.getItem("User")) || { name: "Guest" };
 
     return (
         <div className="min-h-screen bg-gray-100 flex flex-col">
             {/* Header */}
             <header className="bg-blue-gray-600 shadow-md py-4 px-6 flex justify-between items-center">
-                <div>
-                    <h1 className="text-white text-2xl font-semibold tracking-wide">
+                <div className="cursor-pointer" onClick={() => navigate("/")}>
+                    <h1 className="text-white text-2xl font-semibold tracking-wide hover:text-gray-200">
                         Expense Tracker
                     </h1>
                 </div>
-                <div>
+                <div className="flex items-center">
+                    <Button
+                        onClick={() => navigate("/manage-friends")}
+                        className="bg-white text-black hover:text-white hover:bg-blue-gray-500 border-none mr-4"
+
+                    >
+                        Manage Friends
+                    </Button>
                     <Dropdown.Button
                         menu={menuProps}
                         icon={<UserOutlined />}
-                        className="bg-blue-gray-500 hover:bg-blue-gray-400 text-white border-none">
+                        className="bg-blue-gray-500 hover:bg-blue-gray-400 text-white border-none"
+                    >
                         {user.name}
                     </Dropdown.Button>
                 </div>
@@ -122,3 +72,4 @@ function DefaultLayout(props) {
 }
 
 export default DefaultLayout;
+

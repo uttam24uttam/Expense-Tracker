@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-
+ 
 const SettlementSchema = new mongoose.Schema({
     payer: {
         type: mongoose.Schema.Types.ObjectId,

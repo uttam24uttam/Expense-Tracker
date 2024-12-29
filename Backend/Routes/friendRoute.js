@@ -9,7 +9,6 @@ import FriendBalance from '../models/FriendBalance.js';
 const router = express.Router();
 
 
-
 //ADD FRIEND
 router.post('/add-friend', async (req, res) => {
 

@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-const url = "mongodb://localhost:27017/Expense_tracker";
+const url = process.env.MONGO_URL;
 
 mongoose.connect(url);
 

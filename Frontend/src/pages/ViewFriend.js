@@ -75,7 +75,7 @@ function ViewFriend() {
             }
 
             // fetch all friend-transactions
-            const transactionsResponse = await axios.get(`/api/friend-transactions/transactions/${user._id}/${friendId}`);
+            const transactionsResponse = await axios.get(`api/friend-transactions/transactions/${user._id}/${friendId}`);
 
             setTransactions(transactionsResponse.data.transactions);
             setBalance(transactionsResponse.data.balance);

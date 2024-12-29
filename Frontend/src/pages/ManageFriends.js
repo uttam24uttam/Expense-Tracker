@@ -20,7 +20,7 @@ function ManageFriends() {
         setLoading(true);
         try {
             const user = JSON.parse(localStorage.getItem("User"));
-            const response = await axios.get(`http://localhost:5000/api/friends/get-friends/${user._id}`);
+            const response = await axios.get(`api/friends/get-friends/${user._id}`);
             setFriends(response.data);
         } catch (error) {
             console.error(error);
@@ -34,7 +34,7 @@ function ManageFriends() {
     const getOverallBalance = async () => {
         const user = JSON.parse(localStorage.getItem("User"));
         try {
-            const response = await axios.get(`http://localhost:5000/api/friends/get-overall-balance/${user._id}`);
+            const response = await axios.get(`api/friends/get-overall-balance/${user._id}`);
             setOverallBalanceMessage(response.data.message);
         } catch (error) {
             console.error(error);
@@ -51,7 +51,7 @@ function ManageFriends() {
 
         try {
             const user = JSON.parse(localStorage.getItem("User"));
-            const response = await axios.post("http://localhost:5000/api/friends/add-friend", {
+            const response = await axios.post("api/friends/add-friend", {
                 userId: user._id,
                 friendEmail: searchEmail,   //email of friend
             });
@@ -97,16 +97,16 @@ function ManageFriends() {
                 </div>
 
                 <div className="mb-6">
-                    <h2 className="text-2xl font-semibold mb-2">Overall Balance</h2>
-                    <p
-                        className={`text-xl ${overallBalanceMessage.includes('settled') ? 'text-gray-700' : overallBalanceMessage.includes('owed') ? 'text-green-800' : 'text-red-800'}`}
+                 <h2 className="text-2xl font-semibold mb-2">Overall Balance</h2>
+                  <p
+                    className={`text-xl ${overallBalanceMessage.includes('settled') ? 'text-gray-700' : overallBalanceMessage.includes('owed') ? 'text-green-800' : 'text-red-800'}`}  // owe = red , owed = green , settled = grey
                     >
                         {overallBalanceMessage}
                     </p>
                 </div>
 
 
-                <div>                  {/* friends List Section */}
+                <div>             {/* user's frenids List Section */}
 
                     {loading ? (
                         <p>Loading friends...</p>

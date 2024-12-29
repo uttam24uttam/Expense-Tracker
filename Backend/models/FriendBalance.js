@@ -7,7 +7,7 @@ const FriendBalanceSchema = new mongoose.Schema(
             ref: 'User',
             required: true,
         },
-        balances: [                                       //array , contains all the friends and balance owedd to those friends
+        balances: [   //array , contains all the friends and balance owedd to those friends
             {
                 friendId: {
                     type: mongoose.Schema.Types.ObjectId,

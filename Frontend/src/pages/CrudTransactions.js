@@ -9,7 +9,7 @@ import { render, fireEvent, waitFor } from '@testing-library/react';
 function CrudTransactions(props) {
 
 
-    //So when the form is submitted , the save buttons is clicked , then this function is called. It saves it into db and shows in table
+    //when the form is submitted , the save buttons is clicked , then this function is called. It saves it into db and shows in table
     const onFinish = async (values) => {
 
         const user = JSON.parse(localStorage.getItem("User"))

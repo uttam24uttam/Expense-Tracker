@@ -16,4 +16,4 @@ This web app helps you manage your personal finances and split expenses with fri
 - All the transactions  and  settlements and changes are automatically updated and visible across all friends' balances.
 
 
-- **Automatic Personal Expense Tracker Updates**: When you split an expense with friends, your share of the expense is automatically added (with your permission) to your personal finance tracker with the same category and description, eliminating the need for manual entry. This ensures seamless integration between your personal finances and shared expenses.
+- **Automatic Personal Expense Tracker Updates**: When user splits an expense with friends, user's share of the expense is automatically added  to  personal finance tracker (with user's permisison) with the same category and description, eliminating the need for manual entry. This ensures seamless integration between  personal finances and shared expenses.

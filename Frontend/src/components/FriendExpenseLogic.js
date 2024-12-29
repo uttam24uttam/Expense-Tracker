@@ -139,7 +139,7 @@ export const generateFriendTransactions = (settledTransactions, newExpense) => {
 //Post transactions to the backend
 export const postTransactionsToBackend = async (transactions) => {
     try {
-        const response = await fetch("http://localhost:5000/api/friend-transactions/add", {
+        const response = await fetch("api/friend-transactions/add", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",

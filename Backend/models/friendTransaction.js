@@ -19,6 +19,10 @@ const friendTransactionSchema = new mongoose.Schema({
         type: Number,
         required: true
     },
+    category: {
+        type: String,
+        default: "Uncategorized"
+    },
     description: {
         type: String,
         required: true
@@ -39,10 +43,7 @@ const friendTransactionSchema = new mongoose.Schema({
         type: String,
         required: true
     },
-    category: {
-        type: String,
-        default: "Uncategorized"
-    },
+
 });
 
 const FriendTransaction = mongoose.model('FriendTransaction', friendTransactionSchema);

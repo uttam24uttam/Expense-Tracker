@@ -1,6 +1,6 @@
 This web app helps you manage your personal finances and split expenses with friends effortlessly. One can  track  daily spending or sharing bills with friends using this app easily.
 
-## Features
+## Features 
 
 ### Personal expense tracking
 1) Record all your transactions, whether it's income or expenses.
